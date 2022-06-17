@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task manager</title>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./styles/main.css" rel="stylesheet">
+    
+</head>
+<body>
+    <main class="main-content">
+
+        <section class="list">
+            <h3>Your pending task</h3>
+            <div class="d-grid gap-2 col-6 mx-auto"></div>
+            <button id="btnShowHide" class="btn btn-dark">Show / Hide</button>
+           
+              </div>
+        </section>
+
+        <section id="pnlForm" class="form">
+            <h3>Task info</h3>
+
+            <div class="my-field">
+                <label>Title</label>
+                <input class="form-control" type="text">
+            </div>
+
+            <div class="my-field">
+                <label>Importance</label>
+                <i id="iImportant"class="fas fa-battery-full"></i>
+            </div>
+
+            <div class="my-field">
+                <label>Duration (days)</label>
+                <input class="form-control" type="number">
+            </div>
+
+            <div class="my-field">
+                <label>Deadline</label>
+                <input class="form-control" type="datetime-local">
+            </div>
+
+            <div class="my-field">
+                <label>Location</label>
+                <input class="form-control" type="text">
+            </div>
+
+            <div class="my-field">
+                <label>Status</label>
+                <select class="form-select">
+                    <option selected hidden value="-1">--Select--</option>
+                    <option value="0">New</option>
+                    <option value="1">In Progress</option>
+                    <option value="3">Blocked</option>
+                    <option value="5">Completed</option>
+                    <option value="9">Remove</option>
+                </select>
+            </div>
+        </section>
+    
+    </main> 
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/app.js"></script>
+</body>
+</html>
