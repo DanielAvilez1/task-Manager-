@@ -39,23 +39,100 @@ function saveTask() {
     theLocation,
     status
   );
-  console.log(task);
+  console.log(JSON.stringify(task));
 
-  displayTask(task);
+  $.ajax({
+    url: "https://fsdiapi.azurewebsites.net/api/tasks/",
+    type: "POST",
+    data: JSON.stringify(task),
+    contentType: "application/json",
+    success: function (response) {
+      let savedTask = JSON.parse(response);
+      displayTask(savedTask);
+    },
+    error: function (details) {
+      console.log("Error saving", details);
+    },
+  });
+}
+function getStatusText(status) {
+  switch (status) {
+    case "0":
+      return "New";
+    case "1":
+      return "In Progress";
+    case "3":
+      return "Blocked";
+    case "5":
+      return "Completed";
+    case "9":
+      return "Removed";
+    default:
+      return "missing";
+  }
 }
 
 function displayTask(task) {
+  let statusText = getStatusText(task.status);
   let syntax = `<div class="task">
     <h3>${task.title}</h3>
     <label>${task.importance}</label>
-    <label>${task.location}</label>
-    <div class="dates">
+   
     <label>${task.duration}</label>
     <label>${task.deadline}</label>
+    <label>${statusText}</label> 
+    <label>${task.location}</label>
+    <div class="dates">
     </div>
    </div>`;
 
   $("#task-list").append(syntax);
+}
+
+function testRequest() {
+  $.ajax({
+    url: "https://fsdiapi.azurewebsites.net/",
+    type: "GET",
+    success: function (response) {
+      console.log("Server Says:", response);
+    },
+    error: function (errorDet) {
+      console.log("Error on request", errorDet);
+    },
+  });
+}
+
+function fetchTasks() {
+  $.ajax({
+    type: "GET",
+    url: "https://fsdiapi.azurewebsites.net/api/tasks",
+    success: function (response) {
+      let tasks = JSON.parse(response);
+      for (let i = 0; i < tasks.length; i++) {
+        let item = tasks[i];
+        if (item.name == "Daniel") {
+          displayTask(item);
+        }
+      }
+    },
+    error: function (dets) {
+      console.log("Error fetching task", dets);
+    },
+  });
+}
+
+function clearAllTasks() {
+  $.ajax({
+    type: "DELETE",
+    url: "https://fsdiapi.azurewebsites.net/api/tasks/clear/Daniel",
+    success: function () {
+      $("#task-list").html("");
+    },
+
+    error: function (eer) {
+      console.error(err);
+    },
+  });
 }
 
 function init() {
@@ -63,12 +140,13 @@ function init() {
   console.log("task manager");
 
   // load data
+  fetchTasks();
 
   //hook events
   $("#iImportant").click(toggleImportant);
   $("#btnShowHide").click(togglePanel);
   $("#btnSave").click(saveTask);
+  $("#btnClear").click(clearAllTasks);
 }
 
 window.onload = init;
-//

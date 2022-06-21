@@ -17,7 +17,7 @@ h3{
 
 .form {
     flex: 4;
-    border-left: #666;
+    
 }
 label{
     font-size: 30px;
@@ -53,3 +53,25 @@ label{
 .task .dates label{
     display: block;
 }
+
+.status-0{
+    border: 1px solid darkred;
+
+}
+.status-1{
+    border: 1px solid darkred;
+
+}
+.status-3{
+    border: 1px solid darkred;
+
+}
+.status-5{
+    border: 1px solid darkred;
+
+}
+.status-9{
+    border: 1px solid darkred;
+
+}
+
